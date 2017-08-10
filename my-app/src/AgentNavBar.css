@@ -1,0 +1,18 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  background: #598787;
+  /*color: white;*/
+  /*padding: 15;*/
+}
+
+li {
+  display: inline-block;
+  padding: 20px;
+  /*color: white;*/
+}
+
+
+.item {
+  color: white;
+}

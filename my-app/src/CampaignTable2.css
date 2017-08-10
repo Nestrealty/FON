@@ -1,0 +1,59 @@
+.campaign-page {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: #46797b;
+  display: inline-block;
+  /*float: right;*/
+}
+
+.custom-button {
+  width: 50%;
+}
+
+.tables {
+  display: flex;
+  flex-direction: row;
+}
+
+.included-table {
+  width: 48%;
+  margin-top: 1.5%;
+}
+
+.campaign-title {
+  display: flex;
+  flex-direction: row;
+}
+
+.middle {
+  width: 4%;
+}
+
+.not-table {
+  width: 48%;
+  margin-top: 1.5%;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown {
+  width: 50%;
+  margin: auto;
+  margin-top: 1.5%;
+}
+
+.tableTitles {
+  color: gray;
+}
+
+.search {
+  display: flex;
+  flex-direction: row;
+}
+

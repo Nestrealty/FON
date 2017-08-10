@@ -1,0 +1,19 @@
+.header {
+    background-color: #46797b;
+    display: flex;
+    /*flex-direction: row*/
+    padding: 2%
+    
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.agentDirectory{
+    margin: auto
+}
+
+
+

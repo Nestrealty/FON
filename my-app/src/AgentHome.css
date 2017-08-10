@@ -1,0 +1,48 @@
+.home-agent {
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+}
+
+.profile {
+  padding-left: 1%;
+  padding-top: 1%;
+}
+
+.name {
+  font-size: 100%;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+}
+
+.center-column {
+  margin: auto;
+  padding-top: 5%;
+  text-align: center;
+}
+
+.manage {
+  margin: auto;
+  margin-top: 40%;
+}
+
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  width: 33.33%;
+  text-align: right;
+}
+
+.log-out-button {
+  padding-right: 2%;
+  padding-top: 2%;
+}
