@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 
-var ExcelCSV = require('excelcsv');
+var ExcelCSV = require("excelcsv");
 
-
-var fileIn = 'src/col.xlsx'
+var fileIn = "src/col.xlsx";
 
 var parser = new ExcelCSV(fileIn);
-var csv = parser.init()
-console.log(csv);
+var csv = parser.init()(csv);
 // import XLSX from "xlsx";
 
 // var oFileIn;
@@ -72,11 +70,11 @@ console.log(csv);
 // const options = { sheet: "1", isColOriented: true, omitEmptyFields: false };
 // export default class ExceltoJson extends Component {
 //   handleConvertExcel = event => {
-//     console.log("entered");
+//     ("entered");
 //   };
 
 //   // convertExcel = ('col.xlsx', 'col.json', options, (err, data)) => {
-//   //     console.log('entered')
+//   //     ('entered')
 //   // }
 //   render() {
 //     return (
@@ -109,7 +107,7 @@ console.log(csv);
 //       };
 //       reader.readAsBinaryString(f);
 //     }
-//     console.log("entered");
+//     ("entered");
 //   };
 
 // input_dom_element.addEventListener('change', handleFile, false);

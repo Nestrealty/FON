@@ -193,7 +193,7 @@ export default class MasterTable extends React.Component {
       filtered: !!searchText,
       searchData: this.state.dataSource
         .map(record => {
-          console.log("record", record);
+          "record", record;
           const match =
             record.clientName.match(reg) ||
             record.clientCity.match(reg) ||

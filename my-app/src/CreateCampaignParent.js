@@ -35,7 +35,9 @@ const plainOptions = [
   "Richmond",
   "Shenandoah Valley",
   "The Triangle",
-  "Wilmington"
+  "Wilmington",
+  "Lake Norman",
+  "The Triangle"
 ];
 const defaultCheckedList = [];
 

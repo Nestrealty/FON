@@ -67,7 +67,7 @@ export default class EditProfileForm extends React.Component {
 
   editInfo() {
     var agent = this.state.agent;
-    console.log(agent);
+    agent;
     agent.agentName = this.state.name || agent.agentName;
     agent.agentEmail = this.state.email || agent.agentEmail;
     agent.agentEmail2 = this.state.email2 || agent.agentEmail2;

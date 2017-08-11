@@ -112,7 +112,7 @@
 // //         uploadedFiles: this.state.fileList
 // //       })
 // //       .then(res => {
-// //         console.log(res);
+// //         (res);
 // //       });
 // //   };
 

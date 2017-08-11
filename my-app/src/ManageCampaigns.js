@@ -37,7 +37,10 @@ const plainOptions = [
   "New River Valley",
   "Richmond",
   "Shenandoah Valley",
-  "Wilmington"
+  "Wilmington",
+  "Northern Virginia",
+  "Lake Norman",
+  "The Triangle"
 ];
 
 export default class ManageCampaigns extends Component {
@@ -148,17 +151,13 @@ export default class ManageCampaigns extends Component {
 
   WritetoDatabase() {
     axios
-      .put(
-        "/api/campaigns/" +
-          this.state.selectedCampaign._id,
-        {
-          campaignName: this.state.campaignName,
-          campaignCustomization: this.state.writeColumns,
-          startDate: this.state.startDate,
-          endDate: this.state.endDate,
-          officesIncludedinCampaign: this.state.checkedList
-        }
-      )
+      .put("/api/campaigns/" + this.state.selectedCampaign._id, {
+        campaignName: this.state.campaignName,
+        campaignCustomization: this.state.writeColumns,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate,
+        officesIncludedinCampaign: this.state.checkedList
+      })
       .then(res => {
         var id = res.data._id;
         for (var i = 0; i < this.state.agentData.length; i++) {

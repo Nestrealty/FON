@@ -24,7 +24,7 @@ export default class AdminAgentDirectory extends Component {
     };
   }
 
-//start search functions
+  //start search functions
   onInputChange(e) {
     this.setState({ searchText: e.target.value });
   }
@@ -66,7 +66,7 @@ export default class AdminAgentDirectory extends Component {
 
   componentWillMount() {
     axios.get("/api/agents").then(res => {
-      console.log(res.data);
+      res.data;
       this.setState({
         data: res.data,
         officeData: res.data.filter(agent => {
@@ -98,7 +98,7 @@ export default class AdminAgentDirectory extends Component {
   }
 
   openEditModal(text) {
-    console.log(text);
+    text;
     this.setState({
       editModal: true,
       selectedAgent: text
@@ -118,22 +118,18 @@ export default class AdminAgentDirectory extends Component {
     var agentId = this.state.selectedAgent._id;
 
     axios
-      .put(
-        "/api/agent/password/" +
-          this.state.selectedAgent.agentCode,
-        {
-          // agentCode: agentCode,
-          agentName: agentName,
-          agentEmail: agentEmail,
-          agentEmail2: agentEmail2,
-          agentPhoneNumber: agentPhoneNumber,
-          agentPhoneNumber2: agentPhoneNumber2,
-          agentOffice: agentOffice,
-          password: password
-        }
-      )
+      .put("/api/agent/password/" + this.state.selectedAgent.agentCode, {
+        // agentCode: agentCode,
+        agentName: agentName,
+        agentEmail: agentEmail,
+        agentEmail2: agentEmail2,
+        agentPhoneNumber: agentPhoneNumber,
+        agentPhoneNumber2: agentPhoneNumber2,
+        agentOffice: agentOffice,
+        password: password
+      })
       .then(res => {
-        console.log("Updated", res.data);
+        "Updated", res.data;
       });
     this.closeEditModal();
   }
@@ -145,9 +141,7 @@ export default class AdminAgentDirectory extends Component {
   }
 
   deleteAgent() {
-    axios.delete(
-      "/api/agent/" + this.state.selectedAgent.agentCode
-    );
+    axios.delete("/api/agent/" + this.state.selectedAgent.agentCode);
     this.setState({
       editModal: false
     });
@@ -352,12 +346,11 @@ export default class AdminAgentDirectory extends Component {
           {editModal}
           {modal}
           <Link to="/">
-            <Icon type="arrow-left" style={{ fontSize: 30, color: 'white' }} />
+            <Icon type="arrow-left" style={{ fontSize: 30, color: "white" }} />
           </Link>
-          
+
           <h1 className="agentDirectory">Agent Directory</h1>
           <Button onClick={() => this.openModal()}>Add Agent</Button>
-         
         </div>
 
         <Tabs
@@ -375,13 +368,13 @@ export default class AdminAgentDirectory extends Component {
           <TabPane tab="Wilmington" key="Wilmington" />
         </Tabs>
         <Table
-        //one table renders data depending on the office tab that is selected
+          //one table renders data depending on the office tab that is selected
           columns={columns}
           dataSource={
             this.state.filtered ? this.state.searchData : this.state.officeData
           }
           pagination={false}
-          scroll={{y: 1000}}
+          scroll={{ y: 1000 }}
         />
       </div>
     );

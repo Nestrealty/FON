@@ -39,6 +39,21 @@ const officeAddresses = [
     office: "Wilmington",
     returnLine1: "1508 Military Cutoff Rd Suite 203",
     returnLine2: "Wilmington NC 28403"
+  },
+  {
+    office: "Lake Norman",
+    returnLine1: "",
+    returnLine2: ""
+  },
+  {
+    office: "The Triangle",
+    returnLine1: "",
+    returnLine2: ""
+  },
+  {
+    office: "Northern Virginia",
+    returnLine1: "",
+    returnLine2: ""
   }
 ];
 
@@ -46,32 +61,25 @@ export default class JSONtoExcel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: [],
       campaignName: this.props.campaignName,
       office: this.props.office,
       selectedCampaignClients: this.props.selectedCampaignObject.clients
-      // allClients: []
-      // exportData: []
-      // officeIDs: []
     };
   }
 
   handleClick(event) {
-    console.log(
-      "selected campaign clients:",
-      this.state.selectedCampaignClients
-    );
     var data = [];
     var selectiveData = Object.keys(
       this.state.selectedCampaignClients
     ).filter(key => {
       if (this.state.selectedCampaignClients[key].length > 0) {
         this.state.selectedCampaignClients[key].filter(client => {
-          if (client.office == this.state.office) {
+          console.log(client.office, this.state.office);
+          if (client.office.toLowerCase() === this.state.office.toLowerCase()) {
             {
               officeAddresses.map(office => {
                 if (office.office == this.state.office) {
-                  var new_client= {
+                  var new_client = {
                     "Client Name": client.clientName,
                     "First Name": client.firstName,
                     "Last Name": client.lastName,
@@ -93,15 +101,13 @@ export default class JSONtoExcel extends Component {
 
                   var campaign = this.props.selectedCampaignObject;
                   var customFields = campaign.campaignCustomization;
-                  console.log("custom fields:", customFields)
+
                   customFields.map(field => {
                     if (client[field] != undefined) {
                       new_client[field] = client[field];
-
                     } else {
-                      new_client[field] = "None"
+                      new_client[field] = "None";
                     }
-                    
                   });
 
                   return data.push(new_client);
@@ -114,7 +120,6 @@ export default class JSONtoExcel extends Component {
     });
 
     if (data == "") return;
-    console.log("data:", data);
 
     this.JSONToCSVConvertor(
       data,
@@ -194,27 +199,6 @@ export default class JSONtoExcel extends Component {
     document.body.removeChild(link);
   }
   render() {
-    // console.log(
-    //   "selected campaign client IDs:",
-    //   this.state.selectedCampaignClientIDs
-    // );
-
-    // console.log("all clients:", this.state.allClients);
-
-    // var self = this;
-    // this.state.allClients.forEach(function(client) {
-    //   if (self.state.selectedCampaignClientIDs.includes(client._id)) {
-    //     self.state.selectedCampaignObjects.push(client);
-    //   }
-    // });
-
-    // console.log(
-    //   "selected campaign objects:",
-    //   this.state.selectedCampaignObjects
-    // );
-    console.log("campaign object:", this.state.selectedCampaignObject);
-    console.log("office:", this.state.office);
-
     return (
       <div className="mydiv">
         <button className="gen_btn" onClick={event => this.handleClick(event)}>
