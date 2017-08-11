@@ -11,6 +11,10 @@ import enUS from "antd/lib/locale-provider/en_US";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
+// Component where Agent can edit their current Campaign that is in progress
+// The agent can add or remove clients from their included and not-included lists
+// The agent can also customize the columns specified from the admin side
+
 export default class CampaignTable2 extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +44,7 @@ export default class CampaignTable2 extends Component {
     // Case 2 : No clients in past campaign or this one
     // Case 3 : clients in past campaign but not this one
     var self = this;
-    axios.get("http://localhost:4000/api/campaigns").then(res => {
+    axios.get("/api/campaigns").then(res => {
       var campaigns = res.data;
 
       var included = [];
@@ -235,7 +239,7 @@ export default class CampaignTable2 extends Component {
     };
     axios
       .put(
-        "http://localhost:4000/api/campaign/" +
+        "/api/campaign/" +
           this.state.currentCampaign._id +
           "/" +
           this.state.agent.agentCode,
@@ -328,26 +332,24 @@ export default class CampaignTable2 extends Component {
   showCampaign(e, data) {
     if (data.value !== "master") {
       var self = this;
-      axios
-        .get("http://localhost:4000/api/campaigns/" + data.value)
-        .then(res => {
-          var code = self.state.agent.agentCode;
-          var includedIds = self.state.included.map(client => {
-            return client._id;
-          });
-          var pastIncluded = res.data.clients[code];
-          var selectedCampaign = res.data;
-          var notIncluded = [];
-          pastIncluded.map(client => {
-            if (!includedIds.includes(client._id)) {
-              notIncluded.push(client);
-            }
-          });
-          self.setState({
-            notIncluded: notIncluded,
-            selectedCampaign: selectedCampaign
-          });
+      axios.get("/api/campaigns/" + data.value).then(res => {
+        var code = self.state.agent.agentCode;
+        var includedIds = self.state.included.map(client => {
+          return client._id;
         });
+        var pastIncluded = res.data.clients[code];
+        var selectedCampaign = res.data;
+        var notIncluded = [];
+        pastIncluded.map(client => {
+          if (!includedIds.includes(client._id)) {
+            notIncluded.push(client);
+          }
+        });
+        self.setState({
+          notIncluded: notIncluded,
+          selectedCampaign: selectedCampaign
+        });
+      });
     } else {
       var includedIds = this.state.included.map(client => {
         return client._id;

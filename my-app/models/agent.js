@@ -20,6 +20,8 @@ var AgentSchema = new Schema({
   password: String
 });
 
+//Before saving an agent to the database, hash the entered password for safety
+
 AgentSchema.pre("save", function(next) {
   var agent = this;
 
@@ -41,10 +43,9 @@ AgentSchema.pre("save", function(next) {
   });
 });
 
+// Method that will be used when an agent logs in to check if the entered password is correct
 AgentSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    console.log("candidate", candidatePassword);
-    console.log("Actual", this.password);
     if (err) return cb(err);
     cb(null, isMatch);
   });

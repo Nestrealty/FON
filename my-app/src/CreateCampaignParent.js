@@ -58,7 +58,7 @@ export default class CreateCampaignParent extends Component {
   }
 
   componentWillMount() {
-    axios.get("http://localhost:4000/api/agents/").then(res => {
+    axios.get("/api/agents/").then(res => {
       this.setState({
         agentData: res.data
       });
@@ -106,7 +106,7 @@ export default class CreateCampaignParent extends Component {
     });
     axios({
       method: "post",
-      url: "http://localhost:4000/api/campaign/",
+      url: "/api/campaign/",
       data: {
         campaignName: this.state.campaignTitle,
         campaignCustomization: this.state.writeColumns,
@@ -124,7 +124,7 @@ export default class CreateCampaignParent extends Component {
           var agentCode = this.state.agentData[i].agentCode;
           var agent = this.state.agentData[i];
           agent.pastCampaigns.push(id);
-          axios.put("http://localhost:4000/api/agent/" + agentCode, agent);
+          axios.put("/api/agent/" + agentCode, agent);
         }
       }
     });

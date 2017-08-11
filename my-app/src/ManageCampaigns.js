@@ -60,12 +60,12 @@ export default class ManageCampaigns extends Component {
     var date = moment(this.state.selectedCampaign.startDate).format(
       "MM/DD/YYYY"
     );
-    axios.get("http://localhost:4000/api/campaigns").then(res => {
+    axios.get("/api/campaigns").then(res => {
       this.setState({
         data: res.data
       });
     });
-    axios.get("http://localhost:4000/api/agents/").then(res => {
+    axios.get("/api/agents/").then(res => {
       this.setState({
         agentData: res.data
       });
@@ -93,7 +93,7 @@ export default class ManageCampaigns extends Component {
   }
 
   deleteCampaign(id) {
-    axios.delete("http://localhost:4000/api/campaigns/" + id);
+    axios.delete("/api/campaigns/" + id);
   }
 
   handleOpenModal(text) {
@@ -149,7 +149,7 @@ export default class ManageCampaigns extends Component {
   WritetoDatabase() {
     axios
       .put(
-        "http://localhost:4000/api/campaigns/" +
+        "/api/campaigns/" +
           this.state.selectedCampaign._id,
         {
           campaignName: this.state.campaignName,
@@ -172,7 +172,7 @@ export default class ManageCampaigns extends Component {
             if (!agent.pastCampaigns.includes(id)) {
               agent.pastCampaigns.push(id);
             }
-            axios.put("http://localhost:4000/api/agent/" + agentCode, agent);
+            axios.put("/api/agent/" + agentCode, agent);
           } else {
             var agentCode = this.state.agentData[i].agentCode;
             var agent = this.state.agentData[i];
@@ -180,7 +180,7 @@ export default class ManageCampaigns extends Component {
               var index = agent.pastCampaigns.indexOf(id);
               agent.pastCampaigns.splice(index, 1);
             }
-            axios.put("http://localhost:4000/api/agent/" + agentCode, agent);
+            axios.put("/api/agent/" + agentCode, agent);
           }
         }
         var data = this.state.data;

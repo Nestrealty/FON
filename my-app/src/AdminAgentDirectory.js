@@ -65,7 +65,7 @@ export default class AdminAgentDirectory extends Component {
   //end search functions
 
   componentWillMount() {
-    axios.get("http://localhost:4000/api/agents").then(res => {
+    axios.get("/api/agents").then(res => {
       console.log(res.data);
       this.setState({
         data: res.data,
@@ -119,7 +119,7 @@ export default class AdminAgentDirectory extends Component {
 
     axios
       .put(
-        "http://localhost:4000/api/agent/password/" +
+        "/api/agent/password/" +
           this.state.selectedAgent.agentCode,
         {
           // agentCode: agentCode,
@@ -146,7 +146,7 @@ export default class AdminAgentDirectory extends Component {
 
   deleteAgent() {
     axios.delete(
-      "http://localhost:4000/api/agent/" + this.state.selectedAgent.agentCode
+      "/api/agent/" + this.state.selectedAgent.agentCode
     );
     this.setState({
       editModal: false
@@ -176,7 +176,7 @@ export default class AdminAgentDirectory extends Component {
       password: password
     };
 
-    axios.post("http://localhost:4000/api/agent/new", data);
+    axios.post("/api/agent/new", data);
     this.setState({
       modal: false
     });

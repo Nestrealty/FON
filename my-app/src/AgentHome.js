@@ -9,6 +9,11 @@ import AgentForm from "./AgentProfile";
 import AgentNavBar from "./AgentNavBar";
 import axios from "axios";
 
+// Parent Component: App.js
+// No Props are passed
+// Only Links that can be routed to the following Components:
+// AgentProfile.js, AgentNavBar.js
+
 export default class AgentHome extends Component {
   constructor(props) {
     super(props);

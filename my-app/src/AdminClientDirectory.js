@@ -62,7 +62,7 @@ export default class AdminClientDirectory extends Component {
   //end search functions
 
   componentWillMount() {
-    axios.get("http://localhost:4000/api/clients").then(res => {
+    axios.get("/api/clients").then(res => {
       this.setState({
         data: res.data,
         officeData: res.data.filter(client => {
@@ -102,7 +102,7 @@ export default class AdminClientDirectory extends Component {
     clientAnniversary
   ) {
     var clientId = this.state.selectedClient._id;
-    axios.put("http://localhost:4000/api/clients/" + clientId, {
+    axios.put("/api/clients/" + clientId, {
       clientName: clientName,
       clientAddress: clientAddress,
       clientCity: clientCity,
@@ -122,7 +122,7 @@ export default class AdminClientDirectory extends Component {
 
   deleteClient() {
     axios.delete(
-      "http://localhost:4000/api/clients/" + this.state.selectedClient._id
+      "/api/clients/" + this.state.selectedClient._id
     );
     this.setState({
       editModal: false

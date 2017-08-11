@@ -21,7 +21,7 @@ export default class AdminHome extends Component {
     let data = new FormData();
     data.append("file", e.target.files[0]);
     data.append("name", e.target.files[0].name);
-    //axios.post("http://localhost:4000/api/upload", data);
+    //axios.post("/api/upload", data);
     console.log(data);
     this.setState({
       file: data,
@@ -31,7 +31,7 @@ export default class AdminHome extends Component {
 
   handleSubmit() {
     console.log(this.state.file);
-    axios.post("http://localhost:4000/api/upload", this.state.file);
+    axios.post("/api/upload", this.state.file);
     alert("Data Submitted from " + this.state.name);
   }
   render() {
