@@ -85,7 +85,7 @@ export default class AdminClientDirectory extends Component {
   }
 
   openEditModal(text) {
-    console.log(text);
+    text;
     this.setState({
       editModal: true,
       selectedClient: text

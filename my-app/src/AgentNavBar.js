@@ -30,7 +30,7 @@ export default class AgentNavBar extends Component {
 
   componentWillMount() {
     axios.get("/api/clients/" + this.props.agent.agentCode).then(response => {
-      // console.log(response.data);
+      // (response.data);
       this.setState({
         dataSource: response.data,
         allClients: response.data
@@ -63,7 +63,7 @@ export default class AgentNavBar extends Component {
     });
   }
   render() {
-    console.log("nav bar data", this.state.dataSource);
+    "nav bar data", this.state.dataSource;
     return (
       <Router>
         <div>

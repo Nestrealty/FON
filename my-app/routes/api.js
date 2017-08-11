@@ -104,7 +104,7 @@ router.post("/campaign/", function(req, res, next) {
         if (err) {
           throw err;
         }
-        console.log(campaign);
+        campaign;
         res.json(campaign);
       });
     });

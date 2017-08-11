@@ -99,7 +99,7 @@ export default class AgentEditForm extends React.Component {
   }
 
   render() {
-    console.log("agent:", this.state.agent);
+    "agent:", this.state.agent;
     return (
       <Modal
         visible={this.state.visible}

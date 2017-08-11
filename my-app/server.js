@@ -62,7 +62,7 @@ app.use(function(req, res, next) {
 
 //Connecting to Mongo using the URI
 mongoose.connect(
-  MONGODB_URI,
+  "mongodb://fonlist:OVZH4WxCo1HnhrkD@cluster0-shard-00-00-khyxs.mongodb.net:27017,cluster0-shard-00-01-khyxs.mongodb.net:27017,cluster0-shard-00-02-khyxs.mongodb.net:27017/Nest?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin",
   {
     useMongoClient: true
   },
@@ -73,10 +73,6 @@ mongoose.connect(
   }
 );
 mongoose.Promise = global.Promise;
-
-Agent.find({}, function(err, agents) {
-  console.log(agents);
-});
 
 //Route for when an agent/admin tries to login
 app.post("/:id", function(req, res) {

@@ -113,7 +113,7 @@ export default class CreateCampaignBuildTable extends Component {
   // }
 
   render() {
-    console.log("columns child:", this.state.columns);
+    "columns child:", this.state.columns;
     return (
       <div>
         <Form>
@@ -132,7 +132,10 @@ export default class CreateCampaignBuildTable extends Component {
               />
 
               <div>
-                {!this.state.edit && <Button onClick={event => this.handleNameNewColumn(event)}>Enter</Button>}
+                {!this.state.edit &&
+                  <Button onClick={event => this.handleNameNewColumn(event)}>
+                    Enter
+                  </Button>}
                 {this.state.edit &&
                   <Button
                     type="primary"
@@ -142,7 +145,8 @@ export default class CreateCampaignBuildTable extends Component {
                   </Button>}
               </div>
             </FormItem>}
-{this.state.columns.length == undefined && <div>No Custom Fields</div>}
+          {this.state.columns.length == undefined &&
+            <div>No Custom Fields</div>}
           {this.state.columns.map(column => {
             return (
               <div>

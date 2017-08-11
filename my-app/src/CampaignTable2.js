@@ -51,7 +51,10 @@ export default class CampaignTable2 extends Component {
       var notIncluded = [];
       var agentCampaigns = res.data.filter(campaign => {
         if (this.state.agent.pastCampaigns.includes(campaign._id)) {
-          return campaign;
+          var time = new Date().getTime();
+          if (moment(campaign.startDate).toDate().getTime() < time) {
+            return campaign;
+          }
         }
       });
 
@@ -100,7 +103,6 @@ export default class CampaignTable2 extends Component {
 
         //Case 1
         if (savedClients.length > 0) {
-          console.log("case one");
           included = savedClients;
           var includedIds = included.map(client => {
             return client._id;
@@ -387,20 +389,20 @@ export default class CampaignTable2 extends Component {
     included.map(client => {
       if (client._id == ID) {
         client[field] = data.value;
-        console.log(client[field]);
+        client[field];
       }
     });
     this.saveClients(included);
   }
 
   handleClick(e) {
-    console.log("click ", e);
+    "click ", e;
     this.setState({
       current: e.key
     });
   }
   render() {
-    console.log("included state:", this.state.included);
+    "included state:", this.state.included;
     var notIncludedColumns = [
       {
         title: "Client Name",
