@@ -121,9 +121,7 @@ export default class AdminClientDirectory extends Component {
   }
 
   deleteClient() {
-    axios.delete(
-      "/api/clients/" + this.state.selectedClient._id
-    );
+    axios.delete("/api/clients/" + this.state.selectedClient._id);
     this.setState({
       editModal: false
     });
@@ -283,6 +281,7 @@ export default class AdminClientDirectory extends Component {
           <TabPane tab="Lake Norman" key="lake norman" />
           <TabPane tab="New River Valley" key="new river valley" />
           <TabPane tab="Richmond" key="richmond" />
+          <TabPane tab="NOVA" key="northern virginia" />
           <TabPane tab="Shenandoah Valley" key="shenandoah valley" />
           <TabPane tab="The Triangle" key="the triangle" />
           <TabPane tab="Wilmington" key="wilmington" />

@@ -1,3 +1,3 @@
 {
-  "uri": "mongodb://Annie:Ann1esharkey@nest-shard-00-00-icudb.mongodb.net:27017,nest-shard-00-01-icudb.mongodb.net:27017,nest-shard-00-02-icudb.mongodb.net:27017/Nest?ssl=true&replicaSet=Nest-shard-0&authSource=admin"
+  "uri": "mongodb://fonlist:OVZH4WxCo1HnhrkD@cluster0-shard-00-00-khyxs.mongodb.net:27017,cluster0-shard-00-01-khyxs.mongodb.net:27017,cluster0-shard-00-02-khyxs.mongodb.net:27017/Nest?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
 }

@@ -6,6 +6,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var path = require("path");
+var convertExcel = require("excel-as-json").processFile;
 
 // routes that will be used when api is called
 const routes = require("./routes/api");
@@ -28,6 +29,7 @@ const MONGODB_URI = config.uri;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "./public")));
 // // Serve static assets
 // app.use(express.static(path.resolve(__dirname, "..", "build")));
 
@@ -71,6 +73,10 @@ mongoose.connect(
   }
 );
 mongoose.Promise = global.Promise;
+
+Agent.find({}, function(err, agents) {
+  console.log(agents);
+});
 
 //Route for when an agent/admin tries to login
 app.post("/:id", function(req, res) {
