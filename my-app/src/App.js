@@ -1,3 +1,4 @@
+// Import all dependencies
 import React, { Component } from "react";
 import "./App.css";
 import AgentNavBar from "./AgentNavBar";
@@ -5,14 +6,10 @@ import AgentHome from "./AgentHome";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import axios from "axios";
 import CreateCampaignParent from "./CreateCampaignParent";
-
 import MediaCenter from "./MediaCenter";
-
 import { LocaleProvider } from "antd";
 import enUS from "antd/lib/locale-provider/en_US";
-
 import AgentProfile from "./AgentProfile";
-
 import { Modal, Form, Input, Radio } from "antd";
 import { Button } from "semantic-ui-react";
 import AdminHome from "./AdminHome";
@@ -22,8 +19,7 @@ import ManageCampaigns from "./ManageCampaigns";
 import CampaignTable2 from "./CampaignTable2";
 import BodyBackgroundColor from "react-body-backgroundcolor";
 
-// import JSONtoExcel from "./JSONtoExcel";
-
+//Main App component that renders the login page and handles routes depending on whether Admin or Agent logged in
 class App extends Component {
   constructor(props) {
     super(props);
@@ -49,17 +45,18 @@ class App extends Component {
     });
   }
 
+  // When Agent is edited from their profile (AgentProfile.js), the update is taken place here
   updateAgent(agent) {
-    console.log("Updated Agent", agent);
     var self = this;
     var updateAgent = this.state.agent;
     updateAgent = agent;
-    axios.put("http://localhost:4000/api/agent/" + agent.agentCode, agent);
+    axios.put("/api/agent/" + agent.agentCode, agent);
     self.setState({
       agent: updateAgent
     });
   }
 
+  //Initial Validation of logging in
   validateLogin() {
     var self = this;
     var body = {
@@ -67,12 +64,11 @@ class App extends Component {
     };
     axios
       .post(
-        "http://localhost:4000/" + this.state.field.toLocaleUpperCase(),
+        "/" + this.state.field.toLocaleUpperCase(),
         body
       )
       .then(response => {
         if (response.data) {
-          console.log("Agent Confirmed", response.data);
           var agent = response.data;
           var logged = true;
           var admin = false;
@@ -90,6 +86,7 @@ class App extends Component {
       });
   }
 
+  // Changing session storage when the logout button is clicked in the child component (AgentHome.js)
   logOut() {
     sessionStorage.setItem("agent", null);
     sessionStorage.setItem("logged", "false");
@@ -99,12 +96,13 @@ class App extends Component {
     });
   }
 
+  // Everytime App renders, retrieve the status of whether logged in or not
   componentWillMount() {
     var logged = sessionStorage.getItem("logged");
     var agent = sessionStorage.getItem("agent");
     var self = this;
     if (logged == "true" && agent !== "ADMIN") {
-      axios.get("http://localhost:4000/" + agent).then(response => {
+      axios.get("/" + agent).then(response => {
         self.setState({
           logged: true,
           admin: false,
@@ -120,6 +118,7 @@ class App extends Component {
   }
 
   render() {
+    // If admin is logged in, return the Admin side of the app
     if (this.state.admin) {
       return (
         <LocaleProvider locale={enUS}>
@@ -140,6 +139,7 @@ class App extends Component {
       );
     }
 
+    //If no one is logged in, render the login page
     var height = window.innerHeight;
     if (!this.state.logged) {
       return (
@@ -179,8 +179,8 @@ class App extends Component {
       );
     }
 
+    // If an agent is logged in, render the AgentHome Component
     if (this.state.logged) {
-      console.log("session storage is true");
       return (
         <div>
           <Router>

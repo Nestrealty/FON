@@ -12,6 +12,11 @@ import CampaignTable2 from "./CampaignTable2";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
+// Component that routes to MasterTable.js and CampaignTable2.js
+// Retrieves all clients that belong to the logged in agent
+// Passes the Client Data to Master Table and Campaign Table
+// Props: Agent Object from App.js
+
 export default class AgentNavBar extends Component {
   constructor(props) {
     super(props);
@@ -24,15 +29,13 @@ export default class AgentNavBar extends Component {
   }
 
   componentWillMount() {
-    axios
-      .get("http://localhost:4000/api/clients/" + this.props.agent.agentCode)
-      .then(response => {
-        // console.log(response.data);
-        this.setState({
-          dataSource: response.data,
-          allClients: response.data
-        });
+    axios.get("/api/clients/" + this.props.agent.agentCode).then(response => {
+      // console.log(response.data);
+      this.setState({
+        dataSource: response.data,
+        allClients: response.data
       });
+    });
   }
 
   updateClients(clients) {

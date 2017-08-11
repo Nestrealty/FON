@@ -87,7 +87,7 @@
 
 //     // You can use any AJAX library you like
 //     //   axios({
-//     //     url: "http://localhost:4000/api/upload/",
+//     //     url: "/api/upload/",
 //     //     method: "post",
 //     //     processData: false,
 //     //     data: formData,
@@ -108,7 +108,7 @@
 //     // };
 
 // //     axios
-// //       .post("http://localhost:4000/api/upload/", {
+// //       .post("/api/upload/", {
 // //         uploadedFiles: this.state.fileList
 // //       })
 // //       .then(res => {
@@ -120,7 +120,7 @@
 // //     const { uploading } = this.state;
 
 // //     const props = {
-// //       action: "http://localhost:4000/api/upload/",
+// //       action: "/api/upload/",
 // //       onRemove: file => {
 // //         this.setState(({ fileList }) => {
 // //           const index = fileList.indexOf(file);

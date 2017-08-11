@@ -9,6 +9,9 @@ import EditForm from "./EditForm";
 import "./App.css";
 import enUS from "antd/lib/locale-provider/en_US";
 
+// Component for Viewing the clients of the logged in Agent
+// One can add (through Form.js modal) and edit (through EditForm.js) clients
+
 export default class MasterTable extends React.Component {
   constructor(props) {
     super(props);
@@ -83,7 +86,7 @@ export default class MasterTable extends React.Component {
       }
     });
     axios
-      .put("http://localhost:4000/api/clients/" + clientId, {
+      .put("/api/clients/" + clientId, {
         firstName: firstName,
         lastName: lastName,
         clientAddress: clientAddress,
@@ -118,7 +121,7 @@ export default class MasterTable extends React.Component {
     var data = this.state.dataSource;
     var self = this;
     axios
-      .post("http://localhost:4000/api/clients", {
+      .post("/api/clients", {
         firstName: firstName,
         lastName: lastName,
         clientAddress: clientAddress,
@@ -148,9 +151,7 @@ export default class MasterTable extends React.Component {
     var self = this;
     var client;
     axios
-      .delete(
-        "http://localhost:4000/api/clients/" + this.state.selectedClient._id
-      )
+      .delete("/api/clients/" + this.state.selectedClient._id)
       .then(res => {
         client = res.data;
         var index = 0;
@@ -208,7 +209,6 @@ export default class MasterTable extends React.Component {
         .filter(record => !!record)
     });
   }
-  
 
   handleClearSearch(event) {
     this.setState({
@@ -386,4 +386,3 @@ export default class MasterTable extends React.Component {
     );
   }
 }
-

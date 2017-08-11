@@ -4,6 +4,10 @@ import { Button, Modal, Form, Input, Radio } from "antd";
 import { Confirm } from "semantic-ui-react";
 const FormItem = Form.Item;
 
+// Modal Component that allows Agent to edit their information
+// Parent: AgentProfile.js
+// Props: Agent Object and Function (onOk()) to update agent information in parent
+
 export default class EditProfileForm extends React.Component {
   constructor(props) {
     super(props);

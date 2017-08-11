@@ -1,37 +1,46 @@
 const express = require("express");
 const router = express.Router();
+
+// Mongoose Schemas
 const Client = require("../models/client.js");
-
 const Agent = require("../models/agent.js");
-
 const Campaign = require("../models/campaign.js");
+
+//Multer in order to process file submissions
 const multer = require("multer");
+
+//Module to convert Excel data of clients into JSON data which is then put into the database
 var convertExcel = require("excel-as-json").processFile;
 
+// Route to get all clients stored in the database
 router.get("/clients", function(req, res, next) {
   Client.find({}).then(function(clients) {
     res.send(clients);
   });
 });
 
+// Route to get a specific client by mongo unique ID
 router.get("/client/:id", function(req, res, next) {
   Client.findOne({ _id: req.params.id }).then(function(client) {
     res.json(client);
   });
 });
 
+// Route to get all clients whose agentCode is passed in through the request parameters
 router.get("/clients/:code", function(req, res, next) {
   Client.find({ agentCode: req.params.code }).then(function(clients) {
     res.send(clients);
   });
 });
 
+// Route to get all agents in the database
 router.get("/agents", function(req, res, next) {
   Agent.find({}).then(function(agents) {
     res.send(agents);
   });
 });
 
+//Route to get all campaigns in the database
 router.get("/campaigns", function(req, res, next) {
   Campaign.find({}, function(err, campaigns) {
     if (err) {
@@ -41,6 +50,7 @@ router.get("/campaigns", function(req, res, next) {
   });
 });
 
+//Route to add a new client
 router.post("/clients", function(req, res) {
   var clientName = req.body.firstName + " " + req.body.lastName;
   var client = new Client({
@@ -69,6 +79,7 @@ router.post("/clients", function(req, res) {
   });
 });
 
+// Route to add a new campaign which also adds an object of clients with each agent's code to keep track of clients
 router.post("/campaign/", function(req, res, next) {
   var clients = {};
   Agent.find({})
@@ -99,6 +110,7 @@ router.post("/campaign/", function(req, res, next) {
     });
 });
 
+// Remove a client by ID
 router.delete("/clients/:id", function(req, res, next) {
   Client.findByIdAndRemove(req.params.id, function(err, client) {
     if (err) {
@@ -109,6 +121,7 @@ router.delete("/clients/:id", function(req, res, next) {
   });
 });
 
+// Remove a campaign by ID
 router.delete("/campaigns/:id", function(req, res, next) {
   Campaign.findByIdAndRemove(req.params.id, function(err, campaign) {
     if (err) {
@@ -119,6 +132,7 @@ router.delete("/campaigns/:id", function(req, res, next) {
   });
 });
 
+// Edit an existing agent
 router.put("/agent/:id", function(req, res, next) {
   Agent.findOne({ agentCode: req.params.id }, function(err, agent) {
     if (err) {
@@ -145,6 +159,7 @@ router.put("/agent/:id", function(req, res, next) {
   });
 });
 
+// Route to change an Agent's password from the Admin
 router.put("/agent/password/:id", function(req, res, next) {
   Agent.findOne({ agentCode: req.params.id }, function(err, agent) {
     if (err) {
@@ -173,6 +188,7 @@ router.put("/agent/password/:id", function(req, res, next) {
   });
 });
 
+// Adding a new agent
 router.post("/agent/new", function(req, res, next) {
   var agent = new Agent({
     agentCode: req.body.agentCode,
@@ -195,6 +211,7 @@ router.post("/agent/new", function(req, res, next) {
   });
 });
 
+// Retrieve all Campaigns
 router.get("/campaigns", function(req, res, next) {
   Campaign.find({}, function(err, campaigns) {
     if (err) {
@@ -204,6 +221,7 @@ router.get("/campaigns", function(req, res, next) {
   });
 });
 
+// Retrieve a single campaign by ID
 router.get("/campaigns/:id", function(req, res, next) {
   Campaign.findOne({ _id: req.params.id }, function(err, campaign) {
     if (err) {
@@ -213,10 +231,9 @@ router.get("/campaigns/:id", function(req, res, next) {
   });
 });
 
+// Edit an existing client
 router.put("/clients/:id", function(req, res, next) {
   var clientName = req.body.firstName + " " + req.body.lastName;
-  console.log(clientName);
-  console.log(req.body.firstName);
   Client.findById(req.params.id, function(err, client) {
     if (err) {
       throw err;
@@ -242,6 +259,7 @@ router.put("/clients/:id", function(req, res, next) {
   });
 });
 
+// Edit an existing campaign
 router.put("/campaigns/:id/", function(req, res, next) {
   Campaign.findOne({ _id: req.params.id }, function(err, campaign) {
     if (err) {
@@ -267,24 +285,24 @@ router.put("/campaigns/:id/", function(req, res, next) {
   });
 });
 
+// When an agent adds a client to their list in a campaign, we edit the campaign's current clients
 router.put("/campaign/:id/:code", function(req, res, next) {
   Campaign.findOne({ _id: req.params.id }, function(err, campaign) {
     if (err) {
       throw err;
     }
-
     campaign.clients[req.params.code] = req.body.clients;
     campaign.markModified("clients");
     campaign.save(function(err, response) {
       if (err) {
         throw err;
       }
-      console.log(response.clients[req.params.code]);
       res.json(response);
     });
   });
 });
 
+// When Admin adds client data file, we store it in Data folder
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "./data");
@@ -296,6 +314,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
+// Then, we take the stored file and parse through it to add the converted JSON data into the Client collection
 router.post("/upload", upload.single("file"), (req, res, next) => {
   convertExcel("./data/" + req.file.originalname, null, null, (err, data) => {
     var clients = [];

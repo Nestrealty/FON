@@ -7,6 +7,11 @@ import { Icon, List, Grid } from "semantic-ui-react";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import EditProfileForm from "./EditProfileForm.js";
 
+// Component for Showing the Agent Information for the agent that is logged in
+// Parent Component: App.js
+// Child Components: EditProfileForm.js (Modal where Agent can edit their information)
+// Props: Agent Object passed from App.js
+
 class AgentProfile extends Component {
   constructor(props) {
     super(props);
@@ -100,58 +105,6 @@ class AgentProfile extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          {/* <div className="form">
-            <List>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Name</h2>
-                  <List.Description>
-                    {agent.agentName}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Email</h2>
-                  <List.Description>
-                    {agent.agentEmail}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Title</h2>
-                  <List.Description>
-                    {agent.agentTitle}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Agent Code</h2>
-                  <List.Description>
-                    {agent.agentCode}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Phone Number</h2>
-                  <List.Description>
-                    {agent.agentPhoneNumber}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-              <List.Item className="form-item">
-                <List.Content>
-                  <h2>Agent Office</h2>
-                  <List.Description>
-                    {agent.agentOffice}
-                  </List.Description>
-                </List.Content>
-              </List.Item>
-            </List>
-          </div> */}
         </div>
         <div className="edit-button">
           <Button
@@ -166,13 +119,3 @@ class AgentProfile extends Component {
 }
 
 export default AgentProfile;
-
-{
-  /* <List.Item>
-  <List.Icon name="folder" />
-  <List.Content>
-    <List.Header>site</List.Header>
-    <List.Description>Your site's theme</List.Description>
-  </List.Content>
-</List.Item>; */
-}

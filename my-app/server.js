@@ -5,18 +5,40 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var path = require("path");
+
+// routes that will be used when api is called
 const routes = require("./routes/api");
+
+const config = require("./public/config.json");
+
+//Mongoose Schemas
 const Client = require("./models/client.js");
 const Agent = require("./models/agent.js");
 const Campaign = require("./models/campaign.js");
 
+//Initiating the App with express
 var app = express();
 var router = express.Router();
 
 var port = process.env.API_PORT || 4000;
 
+//Your MongoDB URI from the cluster
+const MONGODB_URI = config.uri;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// // Serve static assets
+// app.use(express.static(path.resolve(__dirname, "..", "build")));
+
+// // Always return the main index.html, so react-router render the route in the client
+// app.get("*", (req, res) => {
+//   res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+// });
+
+// app.get("*", function(req, res) {
+//   res.sendFile(path.resolve(__dirname, "./build/index.html"));
+// });
 
 //To prevent errors from Cross Origin Resource Sharing, we will set our headers to allow CORS with middleware like so:
 app.use(function(req, res, next) {
@@ -36,8 +58,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Connecting to Mongo using the URI
 mongoose.connect(
-  "mongodb://Annie:Ann1esharkey@nest-shard-00-00-icudb.mongodb.net:27017,nest-shard-00-01-icudb.mongodb.net:27017,nest-shard-00-02-icudb.mongodb.net:27017/Nest?ssl=true&replicaSet=Nest-shard-0&authSource=admin",
+  MONGODB_URI,
   {
     useMongoClient: true
   },
@@ -49,21 +72,21 @@ mongoose.connect(
 );
 mongoose.Promise = global.Promise;
 
+//Route for when an agent/admin tries to login
 app.post("/:id", function(req, res) {
   Agent.findOne({ agentCode: req.params.id }, function(err, agent) {
     if (err) {
       throw err;
     }
     if (agent.agentCode == "ADMIN") {
-      console.log("Admin");
+      //Case that the ADMIN logged in
       res.send(agent);
     } else if (agent.agentCode !== "ADMIN") {
-      console.log("Not admin");
+      // Case that an agent logged in
       agent.comparePassword(req.body.password, function(err, isMatch) {
         if (err) {
           throw err;
         }
-        console.log(req.body.password, isMatch);
         if (isMatch) {
           res.send(agent);
         } else {
@@ -76,6 +99,7 @@ app.post("/:id", function(req, res) {
   });
 });
 
+//Retrieving an agent from a given id as a parameter
 app.get("/:id", function(req, res) {
   Agent.findOne({ agentCode: req.params.id }, function(err, agent) {
     if (err) {
@@ -85,6 +109,7 @@ app.get("/:id", function(req, res) {
   });
 });
 
+// Express middleware
 app.use("/api", routes);
 app.use(bodyParser.json());
 
@@ -93,6 +118,10 @@ app.listen(port, function() {
   console.log(`api running on port ${port}`);
 });
 
+/**The following commented code is used to add all agents provided in an excel sheet. In the the initial setup, 
+ * if the agents are not already in the database, put an excel file of all agents in the project directory 
+ * and use the below code
+ */
 // convertExcel("./agents.xlsx", null, null, function(err, data) {
 //   var agentsWithCodes = [];
 //   var agentWithoutCodes = [];
