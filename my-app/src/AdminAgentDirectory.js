@@ -359,7 +359,7 @@ export default class AdminAgentDirectory extends Component {
         >
           <TabPane tab="Asheville" key="Asheville" />
           <TabPane tab="Charlottesville" key="Charlottesville" />
-          <TabPane tab="Fredericksburg" key="Fredericksburg" />
+          <TabPane tab="NoVA" key="Northern Virginia" />
           <TabPane tab="Lake Norman" key="Lake Norman" />
           <TabPane tab="New River Valley" key="New River Valley" />
           <TabPane tab="Richmond" key="Richmond" />
